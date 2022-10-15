@@ -1,0 +1,24 @@
+[submodule "src/hall.bojiu.com"]
+	path = src/hall.bojiu.com
+	url = https://github.com/superufo/hall.bojiu.com.git
+[submodule "src/hhgame.bojiu.com"]
+	path = src/hhgame.bojiu.com
+	url = https://github.com/superufo/hhgame.bojiu.com.git
+[submodule "src/center.bojiu.com"]
+	path = src/center.bojiu.com
+	url = https://github.com/superufo/center.bojiu.com.git
+[submodule "src/common.bojiu.com"]
+	path = src/common.bojiu.com
+	url = https://github.com/superufo/common.bojiu.com.git
+[submodule "src/gateway.bojiu.com"]
+	path = src/gateway.bojiu.com
+	url = https://github.com/superufo/gateway.bojiu.com.git
+[submodule "src/longhu.bojiu.com"]
+	path = src/longhu.bojiu.com
+	url = https://github.com/superufo/longhu.bojiu.com.git
+[submodule "src/yuxiaxie.bojiu.com"]
+	path = src/yuxiaxie.bojiu.com
+	url = http://13.209.47.230:3000/BoJiu/yuxiaxie.bojiu.com.git
+[submodule "doc"]
+	path = doc
+	url = https://github.com/superufo/doc.git
