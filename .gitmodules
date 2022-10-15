@@ -18,7 +18,7 @@
 	url = https://github.com/superufo/longhu.bojiu.com.git
 [submodule "src/yuxiaxie.bojiu.com"]
 	path = src/yuxiaxie.bojiu.com
-	url = http://13.209.47.230:3000/BoJiu/yuxiaxie.bojiu.com.git
+	url = https://github.com/superufo/yuxiaxie.bojiu.com.git
 [submodule "doc"]
 	path = doc
 	url = https://github.com/superufo/doc.git
