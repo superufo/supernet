@@ -34,3 +34,5 @@ git submodule update
 git   clone  --recurse-submodules   https://github.com/superufo/supernet.git
 ```
 
+MIT License
+
