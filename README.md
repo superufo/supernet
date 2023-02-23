@@ -1,6 +1,6 @@
 # supernet  
 
-从零开始写的框架. 用时1个月. 实现了通讯这块,调通了游戏基本功能, 其中红黑,龙虎斗已经ok. 待完善.  因为疫情项目被放弃。
+    从零开始写的框架. 用时1个月. 实现了通讯这块,调通了游戏基本功能, 其中红黑,龙虎斗已经ok. 待完善.  因为疫情项目被放弃。
 
 ```shell
 git submodule update --init  --recursive
@@ -35,7 +35,7 @@ git   clone  --recurse-submodules   https://github.com/superufo/supernet.git
 ```
 
 
-#系统流程图
+# 系统流程图
 ![supernet excalidraw](https://user-images.githubusercontent.com/20591332/220812915-464b280b-3cec-4c73-b032-d9c7b0420a77.png)
 
 
