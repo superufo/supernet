@@ -1,0 +1,64 @@
+//  protoc --go_out=. --go_opt=paths=source_relative game.proto
+syntax = "proto3";
+option go_package = "/pb";
+
+//   下發給客戶端的游戲信息
+message game_enter_reply_toc {
+  string     game_sid = 1;  // 本局游戏唯一标志
+  int64     start_time = 2;  //  游戲开始的时间
+  int64     enter_time = 3 ; // 玩家進入游戲時間
+}
+
+// 下注用户定义
+message bet_user{
+  string                user_name = 1;   //  用戶名稱
+  optional int64      bet_account = 2;   //  投注金額
+  optional float     escape_point = 3;   // 逃生點
+  optional float           reward = 4;   // 获得的奖励
+  optional int64           ranker = 5;   // 投注的排名
+}
+
+//       上傳的投注信息
+message bet_user_tos {
+    int64     game_sid   = 1;   //本局游戏唯一标志
+    string     user_name = 2;   //      用戶名稱
+    int64    bet_account = 3;   //      投注金額
+   int64    escape_point = 4;   //    自動逃生點
+}
+
+//       排名前10的投注信息
+message bet_10_toc {
+  int64     game_sid   = 1;
+  repeated  bet_user  ten_users = 2;  //当前前10名用户信息
+}
+
+//         发送逃生点给服务器端
+message escape_point_tos {
+  int64        game_sid = 1;   //本局游戏唯一标志
+  string      user_name = 2;   //      用戶名稱
+  int64    escape_point = 3;   //        逃生點
+}
+
+//         当前实况
+message situation_toc {
+    string     game_sid = 1;
+    repeated  bet_user  users = 2 ;
+}
+
+//         发送爆点给客户端
+message explosion_toc {
+  int64        game_sid   = 1;      //本局游戏唯一标志
+  float        explosion  = 2;      //          爆点
+}
+
+//发送过去100局的爆点给客户端
+message past_100_explosion_toc {
+  int64        game_sid  = 1; //本局游戏唯一标志
+  float        explosion = 2;        //  爆点
+  string       user_name = 3; //极限逃生用戶名稱
+  float           height = 4; //极限逃生用戶高度
+}
+
+message  cancel_toc {
+    bool   c  = 1 ;  // 退出游戲的標志
+}

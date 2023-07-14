@@ -1,0 +1,8 @@
+{"level":"warn","ts":"2023-05-15 16:52:37.074","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1054 (42S22): Unknown column 'game_sid' in 'field list'"}
+{"level":"warn","ts":"2023-05-15 16:53:09.318","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1054 (42S22): Unknown column 'game_sid' in 'field list'"}
+{"level":"warn","ts":"2023-05-15 16:53:55.506","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1054 (42S22): Unknown column 'game_sid' in 'field list'"}
+{"level":"warn","ts":"2023-05-15 16:54:32.381","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1406 (22001): Data too long for column 'game_sid' at row 1"}
+{"level":"warn","ts":"2023-05-15 16:54:36.903","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1406 (22001): Data too long for column 'game_sid' at row 1"}
+{"level":"warn","ts":"2023-05-15 16:54:40.920","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1406 (22001): Data too long for column 'game_sid' at row 1"}
+{"level":"warn","ts":"2023-05-15 16:55:30.234","caller":"server/game_instance.go:47","msg":"数据库插入错误","err":"Error 1406 (22001): Data too long for column 'game_sid' at row 1"}
+{"level":"warn","ts":"2023-05-15 17:20:15.864","caller":"server/game_instance.go:45","msg":"数据库插入错误","err":"Error 1406 (22001): Data too long for column 'game_sid' at row 1"}
