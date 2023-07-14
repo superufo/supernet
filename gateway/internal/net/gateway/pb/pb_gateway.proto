@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+// https://grpc.io/docs/languages/go/quickstart/#regenerate-grpc-code
+// go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+// protoc --go-grpc_out=. --go-grpc_opt=paths=source_relative  pb_gateway.proto
+// protoc --go_out=. --go_opt=paths=source_relative pb_gateway.proto
+
+option go_package = "github.com/supernet/gateway/internal/net/gateway/pb";
+
+// 发给服务器 消息号 777  心跳信息
+message m_heart_bit_tos{
+  optional int32 time = 1;
+}
+
+// 回复客户端 消息号 777  心跳信息
+message m_heart_bit_toc{
+  optional int32   time 	= 1;
+}
+
+// 发给客户端 错误消息  99
+message m_server_error_toc{
+   optional int32    code 	= 1;
+   string   text 	= 2;
+}
+
+/**********************************登录移到网关处理***********************************************/
+// client to server  消息号 注册   805
+message m_reg_tos {
+  string  account = 1;        // 账号id
+  string pass = 2;            // 密码
+  string re_pass = 3;         // 确认密码
+}
+
+// 注册回复  805
+message m_reg_toc {
+  int32    result = 1;             //成功返回 0 失败返回1
+}
+
+// client to server  消息号登录  803
+message m_login_tos {
+  string account = 1;                	 	 // 用户id
+  string pass = 2;                 // pass
+}
+
+// 消息号登录回复  803
+message m_login_toc {
+  int32  result = 1;             //成功返回 0 失败返回1
+  optional  string token  = 2 ;  //成功返回  失败返回 空
+}
+
+// 用户信息  消息号 800
+message m_user_toc {
+  optional  string       s_id         		   = 1 ;
+  optional  int32          id                   = 2 ;
+  optional string       account              = 3 ;
+  optional  string       name                 = 4 ;
+  optional string       token                = 5 ;
+  optional string       platform             = 6 ;
+  optional int32        sex                  = 7 ;
+  optional string       mac                  = 8 ;
+  optional string       nickname             = 9 ;
+  optional string       ccode                = 10 ;
+  optional string       phone                = 11;
+  optional int64        register_time         = 12;
+  optional string       password             = 13;
+  optional string       agent                = 14;
+  optional int32        status               = 15 ;
+  optional string       register_ip           = 16 ;
+  optional string       father_id             = 17 ;
+}
+
+// 801 玩家金币等信息
+message m_user_info_toc {
+  optional  string   s_id                        = 1 ;
+  optional  int64  	login_Time                  = 2 ;
+  optional  int64  	OfflineTime                 = 3 ;
+  optional  int64  	Gold                        = 4 ;
+  optional  int64  	Diamonds                    = 5 ;
+  optional  int64  	State                       = 6 ;
+  optional  string 	LoginIp                     = 7 ;
+  optional  string 	LoginSFlag                  = 8 ;
+  optional  int64  	CtrlStatus                  = 9 ;
+  optional  int64  	GameId                      = 10 ;
+  optional  int64  	RoomId                      = 11 ;
+  optional  int64  	DeskId                      = 12 ;
+  optional  int64  	CtrlValue                   = 13 ;
+  optional  int64  	PStock                      = 14 ;
+  optional  int64  	RecentPlayTime              = 15 ;
+  optional  int64  	TotalRecharge               = 16 ;
+  optional  int64  	TotalCash                   = 17 ;
+  optional  int64  	GmAward1                    = 18 ;
+  optional  int64  	GmAward2                    = 19 ;
+  optional  string 	RecentPlayPerRoundSid       = 20 ;
+}
+
+//分发游戏配置信息给客户端
+message m_game_config_toc {
+  repeated p_game_config  game = 1;           //101极限跳伞 102 哈希大小 103 哈希单双 104 幸运庄闲 105 哈希牛牛 106幸运哈希   // 201 德州
+}
+
+message p_game_config {
+  int32   game_id = 1;			//游戏ID
+  int32   state = 2;				//1开0关
+  repeated  p_room  room_info = 3;         //分支信息/房间信息
+}
+
+message p_room {
+  int32   room_id = 1; 			//房间类型
+  int32   state = 2;				//1开0关
+  int32   min_limit = 3;			//准入条件
+}
+
+//进入桌子告诉自己基本信息
+message m_game_1_leave_desk_tog{
+  optional int32 room_id = 1;									//房间id
+  optional int32 desk_id = 2;									//桌子id
+}
+
+//进入游戏 協議號 5100 進入极限跳伞  5200 哈希大小 5300 哈希单双 5400 幸运庄闲   5500 哈希牛牛 5600幸运哈希    6000 德州
+message m_game_enter_tos{
+  int32   game_id = 1;		// 游戏ID 101极限跳伞 102 哈希大小 103 哈希单双 104 幸运庄闲 105 哈希牛牛 106幸运哈希   201 德州
+  int64   time = 2;				// 进入游戏的时间戳
+}

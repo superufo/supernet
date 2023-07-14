@@ -1,0 +1,251 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+// https://grpc.io/docs/languages/go/quickstart/#regenerate-grpc-code
+// go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+// protoc --go-grpc_out=. --go-grpc_opt=require_unimplemented_servers=false --go-grpc_opt=paths=source_relative  .\pb_center.proto
+// protoc --go_out=. --go_opt=paths=source_relative pb_center.proto
+
+
+// 游戏的每一局的结束的结算结果
+message game_settlement_tos {
+  uint32   game_type =  1;
+  // 玩家赢钱的数目  正数为赢钱 负数为输钱
+  int64    score      = 2 ;
+}
+
+//probability 概率  reward jiang
+message probability_reward_toc {
+   // 库存1 抽水的概率 probability
+   uint32   probability = 1;
+   // 库存2 奖励的概率
+   float   reward   =  2;
+   // 系统服务费
+   float   system_fee = 3;
+}
+
+//玩家id
+message user_request{
+  string uid = 1;
+}
+
+//玩家id
+message users_request{
+  repeated string uid = 1;
+}
+
+//玩家预扣金币
+message suppose_reduce_req{
+  string uid = 1;
+  int64 gold = 2;
+}
+
+//玩家增加或者减少金币
+message change_balance_req{
+  string uid = 1;//玩家s_id
+  int64 gold = 2;//改变的钱
+  uint32 change_type = 3; //流水改变类型
+  optional string per_round_sid = 4; //游戏牌局号(游戏必填，其他不填)
+  optional uint32 game_id = 5; //游戏id(游戏必填，其他不填)
+  optional uint32 room_id = 6; //游戏房间号(游戏必填，其他不填)
+  optional string serial_no = 7;//序列号(可不填,用于以后订单号)
+}
+
+//玩家增加或者减少金币返回
+message change_balance_resp{
+  int32 code = 1; //0-成功,其他-失败
+  string msg = 2; //返回描述
+  optional int64 before_gold = 3;
+  optional int64 after_gold = 4;
+}
+
+// 用户信息
+message m_user {
+  string   s_id         		   = 1 ;
+  optional int32          id                   = 2 ;
+  optional string       account              = 3 ;
+  optional string       name                 = 4 ;
+  optional string       token                = 5 ;
+  optional string       platform             = 6 ;
+  optional int32        sex                  = 7 ;
+  optional string       mac                  = 8 ;
+  optional string       nickname             = 9 ;
+  optional string       ccode                = 10 ;
+  optional string       phone                = 11;
+  optional int64        register_time         = 12;
+  optional string       password             = 13;
+  optional string       agent                = 14;
+  optional int32        status               = 15 ;
+  optional string       register_ip           = 16 ;
+  optional string       father_id             = 17 ;
+}
+
+message m_user_info {
+  string    s_id                        = 1 ;
+  optional  int64  	login_time                  = 2 ;
+  optional  int64  	offline_time                 = 3 ;
+  optional  int64  	gold                        = 4 ;
+  optional  int64  	diamonds                    = 5 ;
+  optional  int64  	state                       = 6 ;
+  optional  string 	login_ip                     = 7 ;
+  optional  string 	login_s_flag                  = 8 ;
+  optional  int64  	ctrl_status                  = 9 ;
+  optional  int64  	game_id                      = 10 ;
+  optional  int64  	room_id                      = 11 ;
+  optional  int64  	desk_id                      = 12 ;
+  optional  int64  	ctrl_value                   = 13 ;
+  optional  int64  	p_stock                      = 14 ;
+  optional  int64  	recent_play_time              = 15 ;
+  optional  int64  	total_recharge               = 16 ;
+  optional  int64  	total_cash                   = 17 ;
+  optional  int64  	gm_award1                    = 18 ;
+  optional  int64  	gm_award2                    = 19 ;
+  optional  string 	recent_play_per_round_sid       = 20 ;
+}
+
+message user_info_response{
+  m_user user  = 1;
+  m_user_info user_info  = 2;
+}
+
+message storage_req{
+  uint32 gameId = 1;
+  repeated string uids = 2;
+}
+
+message storage_info{
+  int64 id = 1;
+  int64 current_stock1 = 2;
+  int64 current_stock2 = 3;
+  int64 change_time = 4;
+  int64 Update_time = 5;
+  int64 game_id = 6;
+}
+
+message storage_config{
+  int64 id = 1;
+  string name = 2;
+  int64 stock1 = 3;
+  int64 stock1_warn_water = 4;
+  int64 draw_water = 5;
+  float player_service_charge = 6;
+  float system_service_charge = 7;
+  float stock2_service_charge = 8;
+  int64 stock2_warn_water = 9;
+  int64 stock1_state = 10;
+  int64 update_time = 11;
+  float to_stock1 = 12;
+  int64 game_id = 13;
+}
+
+message storage_ctrl{
+  storage_info store_info = 1;
+  storage_config store_cfg = 2;
+  message user_ctrl{
+    string s_id = 1 ;
+    int32  ctrl_status = 2 ;
+  }
+  repeated user_ctrl user_ctrls = 3;
+}
+
+message response{
+  int32 code = 1; //0-成功,其他-失败
+  string msg = 2; //返回描述
+  optional bytes data = 3;
+}
+
+//一局游戏下注汇总
+message bet_summary{
+  int32 game_id = 1; //游戏id
+  message user_bet{
+    string s_id = 1 ;//玩家id
+    int64 bet = 2;//下注
+  }
+  repeated user_bet bets = 2;
+}
+
+//一局游戏输赢汇总
+message winlose_summary{
+  int32 game_id = 1; //游戏id
+  message user_winlose{
+    string s_id = 1 ; //玩家id
+    int64 gold = 2; //输赢
+    int64 tax = 3;  //税收
+  }
+  repeated user_winlose winlose = 2;
+}
+
+//玩家游戏信息保存, 用于断线重连
+message user_game_info{
+  string s_id = 1; //玩家id
+  int32 game_id = 2;//当前所在的游戏
+  int64 room_id = 3;//当前所在的房间
+  int64 desk_id = 4;//桌子id
+}
+
+//游戏场次配置
+message room_config{
+  int32 id = 1; //主键id，唯一
+  string name = 2; //房间名称如高级体验场
+  int64 score = 3; //准入条件 金币数
+  int32 game_id = 4;//游戏id
+  int64 max_bet = 5;//最大下注
+  int64 min_bet = 6;//最小下注
+  int64 max_bet_lucky = 7;//幸运一击的最大值
+  int64 min_bet_lucky = 8;//幸运一击的最小值
+  int32 status = 9;//状态
+  string remark = 10;//备注
+  int32 new_column = 11;//预留
+  int32 enable_robot = 12;//是否开放机器人
+  int32 enable_ip_limit = 13;//是否开启IP限制匹配
+  string bet_area_limit = 14;//下注区域限红配置
+  int64 min_score = 15;//准入条件 最小准入金币数
+  int64 max_score = 16;//准入条件 最大准入金币数
+}
+
+//游戏场次配置请求
+message room_config_req{
+  int32 game_id = 1;//当前所在的游戏
+}
+
+
+//游戏场次配置回复
+message room_config_resp{
+  repeated room_config configs = 1;
+}
+
+//通知配置更新
+message config_update{
+  string table_name = 1;
+}
+
+//库存(中心)服务器rpc
+service storage{
+  //结算变更库存
+  rpc send_settlement(game_settlement_tos) returns (probability_reward_toc);
+  //获取玩家信息(直接从db拿,并清除redis,用于玩家登录时保证数据一致)
+  rpc get_user_info_from_db(user_request) returns(user_info_response);
+  //获取玩家信息(先拿redis,拿不到再从db拿数据填写缓存)
+  rpc get_user_info(user_request) returns(user_info_response);
+  //获取玩家控制状态以及当前库存和配置
+  rpc get_storage_info(storage_req) returns(storage_ctrl);
+  //预减少余额,看能不能扣掉
+  rpc suppose_reduce(suppose_reduce_req) returns(response);
+  //玩家一局游戏结算汇总
+  rpc user_winlose_summary(winlose_summary)returns(response);
+  //玩家一局游戏下注汇总
+  rpc user_bet_summary(bet_summary)returns(response);
+  //获取玩家上次游戏信息
+  rpc get_user_game_info(user_request)returns(user_game_info);
+  //保存玩家上次游戏信息
+  rpc set_user_game_info(user_game_info)returns(response);
+  //获取游戏场次配置
+  rpc get_game_room_config(room_config_req)returns(room_config_resp);
+  //通知中心服务器配置已经更新
+  rpc notify_config_update(config_update)returns(response);
+  //减少余额
+  rpc reduce_balance(change_balance_req) returns(change_balance_resp);
+  //增加余额
+  rpc add_balance(change_balance_req) returns(change_balance_resp);
+}

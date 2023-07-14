@@ -1,0 +1,130 @@
+# 全局信息
+title: "博久游戏"
+
+# 开发dev  测试test 上线 pro
+active: dev
+
+# 日志配置
+log:
+  path: "./logs"
+  prefix: "gateway" # 日志文件前缀
+  level: "debug"    # 日志级别：debug/info/error/warn
+  development: true # 是否为开发者模式
+  debugFileSuffix:  "debug.log"  # debug日志文件后缀
+  warnFileSuffix:   "warn.log"    # warn日志文件后缀
+  errorFileSuffix:  "error.log"   # error日志文件后缀
+  infoFileSuffix:   "info.log"    # info日志文件后缀
+  maxAge: 30        # 保存的最大天数
+  maxBackups: 3000  # 最多存在多少个切片文件
+  maxSize: 1        # 日日志文件大小（M）
+
+ser:
+  gateway:
+    protocol: "ws"
+    ip: "0.0.0.0"
+    port: 18081
+    httpPort: 12000
+
+center:
+  name: "center"
+  addr: ["grpc://127.0.0.1:19001"]
+
+#代理的服务器  哪些消息发往这个后端的websocket
+proxy:
+  hall:
+    name:  "hall"
+    startProtocal: 799
+    endProtocal: 900
+    strategy: "random"
+    addr: ["grpc://127.0.0.1:18089"]
+    maxgrpc: 3
+    mingrpc: 1
+
+  hashrocket:
+    name: "hashrocket"
+    startProtocal: 5100
+    endProtocal: 5150
+    strategy: "random"
+    addr: [ "grpc://127.0.0.1:17910" ]
+    maxgrpc: 8
+    mingrpc: 1
+
+  honghei:
+    name: "honghei"
+    startProtocal: 2000
+    endProtocal: 3000
+    strategy: "random"
+    addr: ["grpc://127.0.0.1:17926"]
+    maxgrpc: 8
+    mingrpc: 1
+
+  yxxgame:
+    name: "yxxgame"
+    startProtocal: 3000
+    endProtocal: 4000
+    strategy: "random"
+    addr: [ "grpc://127.0.0.1:17928" ]
+    maxgrpc: 3
+    mingrpc: 1
+  longhu:
+    name: "longhu"
+    startProtocal: 1000
+    endProtocal: 2000
+    strategy: "random"
+    addr: [ "grpc://127.0.0.1:17001" ]
+    maxgrpc: 3
+    mingrpc: 1
+
+mysql-master:
+  addr: "127.0.0.1"
+  port: 3306
+  username: "root"
+  password: "123456"
+  database: "bj_server"
+
+mysql-slave1:
+  addr: "127.0.0.1"
+  port: 3306
+  username: "root"
+  password: "123456"
+  database: "bj_server"
+
+mongod-master:
+  addr: "127.0.0.1"
+  port: 27017
+  dbname: "bojiu"
+  username: ""
+  password: ""
+
+mongod-slave1:
+  addr: "127.0.0.1"
+  port: 27017
+  dbname: "bojiu"
+  username: ""
+  password: ""
+
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  DB: 3
+  poolSize: 30
+  minIdleConns: 30
+
+country:
+  - short: "CN"
+    name: "中国"
+    en: "China"
+    label: "+86 中国"
+    value: "86"
+  - short: "IN"
+    name: "印度"
+    en: "UnitedArabEmirates"
+    label: "+51 印度"
+    value: "971"
+  - short: "VT"
+    name: "越南"
+    en: "UnitedArabEmirates"
+    label: "+51 越南"
+    value: "971"
+
+

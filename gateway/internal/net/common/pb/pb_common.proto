@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// protoc --go-grpc_out=. --go-grpc_opt=paths=source_relative  pb_hall.proto
+// protoc --go_out=. --go_opt=paths=source_relative pb_common.proto
+// protoc --go-grpc_out=. --go-grpc_opt=paths=source_relative  pb_common.proto
+
+option go_package = "gate.bojiu.com/internal/net/common/pb";
+
+// **************************************************rpc方法**********************************************/
+message Request {
+  uint32  msg =1 ;  // 消息编号
+  bytes secret = 2 ; //
+  bytes  serialNum =3 ;
+  bytes  data = 4; // 数据
+}
+
+message Response {
+  uint32 msg =1 ;  // 消息编号
+  bytes  data = 2; // 数据
+}
+
+service common {
+  // 非流的一元调用 另外的RPc
+  rpc Call(Request) returns (Response);
+}

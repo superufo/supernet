@@ -1,0 +1,19 @@
+syntax = "proto3";
+package login;
+
+option go_package="/proto";
+
+
+//心跳包
+message m_heart_bit_tos{
+   optional int32 time = 1;
+}
+
+// 发给客户端
+message m_heart_bit_toc{
+   optional int32   time 	= 1;
+}
+
+
+
+

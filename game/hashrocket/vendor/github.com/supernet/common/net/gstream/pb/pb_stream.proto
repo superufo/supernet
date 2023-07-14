@@ -1,0 +1,50 @@
+//  protoc --go-grpc_out=. --go-grpc_opt=paths=source_relative  pb_stream.proto
+//  protoc --go_out=. --go_opt=paths=source_relative pb_stream.proto
+syntax = "proto3";
+option go_package = "/pb";
+
+service ForwardMsg {
+  //双向流模式，能推能拉
+  rpc PPStream (stream StreamRequestData) returns (stream StreamResponseData);
+}
+
+message StreamRequestData {
+  string   clientId = 1;  //连接透传id
+  uint32        msg = 2;  //  消息编号
+  bytes        data = 5;  //     数据
+}
+
+message StreamResponseData {
+  string       clientId = 1;     //连接透传id
+  bool         bAllUser = 2; //全服在线玩家广播
+  repeated string  uids = 3;   //广播给指定玩家
+  uint32            msg = 4;       // 消息编号
+  bytes            data = 5;          // 数据
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
